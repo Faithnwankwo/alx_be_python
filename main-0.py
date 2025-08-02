@@ -1,33 +1,16 @@
 import sys
 from bank_account import BankAccount
 
-def main():
-    account = BankAccount(100)
+account = BankAccount()
 
-    if len(sys.argv) < 2:
-        print("Usage: python main-0.py <command>:<amount>")
-        sys.exit(1)
+if len(sys.argv) > 1:
+    command = sys.argv[1]
+    if command.startswith("deposit:"):
+        amount = float(command.split(":")[1])
+        account.deposit(amount)
+    elif command.startswith("withdraw:"):
+        amount = float(command.split(":")[1])
+        account.withdraw(amount)
 
-    try:
-        command, *params = sys.argv[1].split(':')
-        amount = float(params[0]) if params else None
-
-        if command == "deposit" and amount is not None:
-            account.deposit(amount)
-            print(f"Deposited: ${amount}")
-        elif command == "withdraw" and amount is not None:
-            if account.withdraw(amount):
-                print(f"Withdrew: ${amount}")
-            else:
-                print("Insufficient funds.")
-        elif command == "display":
-            account.display_balance()
-        else:
-            print("Invalid command.")
-    except Exception as e:
-        print("Error:", e)
-    finally:
-        print("Thank you for using the bank app.")
-
-if __name__ == "__main__":
-    main()
+account.display_balance()
+print("Thank you for using the bank app.")
