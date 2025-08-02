@@ -13,4 +13,3 @@ if len(sys.argv) > 1:
         account.withdraw(amount)
 
 account.display_balance()
-print("Thank you for using the bank app.")
